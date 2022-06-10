@@ -1,18 +1,11 @@
-//Programming the animated progress bar
-const progressBar = document.querySelector('#progress-bar');
-const section = document.querySelector("section");
+//Programming animated progress bar
+const progressBar = () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("progress-bar").style.width = scrolled + "%";
+};
 
-const animateProgressBar = () => {
-    let scrollDistance = -section.getBoundingClientRect().top;
-    let progressWidth = (scrollDistance / (section.getBoundingClientRect().height - document.documentElement.clientHeight)) * 100;
-    let value = Math.floor(progressWidth);
-
-    progressBar.style.width = value + "%";
-
-    if (value < 0) {
-        progressBar.style.width = '0%';
-    }
-
-}
-
-window.addEventListener('scroll', animateProgressBar)
+window.onscroll = function () {
+    progressBar();
+};
